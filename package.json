@@ -1,0 +1,11 @@
+{
+  "name": "hmsk-nebenkosten-check",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Check a German Nebenkostenabrechnung (utility bill for tenants) in the browser and get an objection letter. Static, no dependencies.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8080 --directory public"
+  }
+}

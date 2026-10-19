@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nebenkostenabrechnung prüfen: kostenloser Check mit Widerspruch-Vorlage</title>
+<meta name="description" content="Nebenkostenabrechnung prüfen: Fristen, nicht umlagefähige Kosten, Umlageschlüssel, Heizkosten und CO2-Aufteilung. Mit fertigem Widerspruch oder Antrag auf Belegeinsicht. Läuft im Browser.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0F0C">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css?v=1">
+</head>
+<body>
+
+<nav class="strip" aria-label="Site">
+  <div class="wrap strip__in">
+    <a class="strip__home" id="lnkHome" href="/de/tools/nebenkosten-check/">&larr; hmsk.life</a>
+    <span class="strip__sp"></span>
+    <a id="lnkImprint" href="/impressum/">Impressum</a>
+    <a id="lnkPrivacy" href="/datenschutz/">Datenschutz</a>
+    <span class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button><button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </div>
+</nav>
+
+<main class="wrap main">
+  <header class="head">
+    <p class="cmd"><span class="ps">$</span> <span data-i18n="cmd">nebenkosten --check</span></p>
+    <h1 data-i18n="h1">Nebenkostenabrechnung prüfen</h1>
+    <p class="lead" data-i18n="lead"></p>
+    <p class="head__tools">
+      <button type="button" class="linkish" id="exampleBtn" data-i18n="example">Beispiel laden</button>
+      <button type="button" class="linkish" id="clearBtn" data-i18n="clear">Alles löschen</button>
+    </p>
+  </header>
+
+  <div class="grid">
+    <form class="panel qs" id="form" autocomplete="off" onsubmit="return false">
+
+      <fieldset class="q">
+        <legend><span class="flag">--abrechnung</span> <span data-i18n="s1">Die Abrechnung</span></legend>
+        <p class="hint" data-i18n="s1_hint"></p>
+        <div class="fields fields--3">
+          <label class="field"><span data-i18n="start">Zeitraum von</span><input type="date" data-f="start"></label>
+          <label class="field"><span data-i18n="end">bis</span><input type="date" data-f="end"></label>
+          <label class="field"><span data-i18n="received">Angekommen am</span><input type="date" data-f="received"></label>
+        </div>
+        <p class="sublabel" data-i18n="result_type">Ergebnis</p>
+        <div class="opts">
+          <label><input type="radio" name="resultType" value="nach"><span data-i18n="nach">Nachzahlung</span></label>
+          <label><input type="radio" name="resultType" value="gut"><span data-i18n="gut">Guthaben</span></label>
+        </div>
+        <div class="fields fields--2">
+          <label class="field"><span data-i18n="amount">Betrag (€)</span><input type="text" inputmode="decimal" data-f="resultAmount"></label>
+          <label class="field"><span data-i18n="area">Wohnfläche (m²)</span><input type="text" inputmode="decimal" data-f="area"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend><span class="flag">--positionen</span> <span data-i18n="s2">Die Kostenpositionen</span></legend>
+        <p class="hint" data-i18n="s2_hint"></p>
+        <div id="lines"></div>
+        <p class="lines__foot"><button type="button" class="btn btn--line btn--sm" id="addLine" data-i18n="add_line">+ Position hinzufügen</button>
+          <span class="dim" id="linesSum"></span></p>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend><span class="flag">--heizung</span> <span data-i18n="s3">Heizung und Warmwasser</span></legend>
+        <label class="check"><input type="checkbox" data-f="heatOn"><span data-i18n="heat_on"></span></label>
+        <div id="heatBox" hidden>
+          <p class="sublabel" data-i18n="q_hkv"></p>
+          <div class="opts">
+            <label><input type="radio" name="heat.hkv" value="y"><span data-i18n="hkv_y"></span></label>
+            <label><input type="radio" name="heat.hkv" value="n"><span data-i18n="hkv_n"></span></label>
+          </div>
+          <div id="hkvBox">
+            <p class="sublabel" data-i18n="q_cons"></p>
+            <div class="opts">
+              <label><input type="radio" name="heat.consBased" value="y"><span data-i18n="yes"></span></label>
+              <label><input type="radio" name="heat.consBased" value="n"><span data-i18n="no"></span></label>
+            </div>
+            <label class="field" id="pctField"><span data-i18n="cons_pct"></span><input type="text" inputmode="decimal" data-f="heat.consPct" class="short"></label>
+            <p class="sublabel" data-i18n="q_remote"></p>
+            <div class="opts">
+              <label><input type="radio" name="heat.remote" value="y"><span data-i18n="yes"></span></label>
+              <label><input type="radio" name="heat.remote" value="n"><span data-i18n="no"></span></label>
+              <label><input type="radio" name="heat.remote" value="u"><span data-i18n="unsure"></span></label>
+            </div>
+            <div id="infoBox" hidden>
+              <p class="sublabel" data-i18n="q_info"></p>
+              <div class="opts">
+                <label><input type="radio" name="heat.info" value="y"><span data-i18n="yes"></span></label>
+                <label><input type="radio" name="heat.info" value="n"><span data-i18n="no"></span></label>
+              </div>
+            </div>
+            <p class="sublabel" data-i18n="q_fossil"></p>
+            <div class="opts">
+              <label><input type="radio" name="co2.fossil" value="y"><span data-i18n="yes"></span></label>
+              <label><input type="radio" name="co2.fossil" value="n"><span data-i18n="no"></span></label>
+            </div>
+            <div id="co2Box" hidden>
+              <p class="sublabel" data-i18n="q_shown"></p>
+              <div class="opts">
+                <label><input type="radio" name="co2.shown" value="y"><span data-i18n="yes"></span></label>
+                <label><input type="radio" name="co2.shown" value="n"><span data-i18n="no"></span></label>
+              </div>
+              <div class="fields fields--2" id="co2Fields" hidden>
+                <label class="field"><span data-i18n="co2_kg"></span><input type="text" inputmode="decimal" data-f="co2.kg"></label>
+                <label class="field"><span data-i18n="co2_ll"></span><input type="text" inputmode="decimal" data-f="co2.llPct"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend><span class="flag">--brief</span> <span data-i18n="s4">Für den Brief</span></legend>
+        <p class="hint" data-i18n="s4_hint"></p>
+        <p class="sublabel" data-i18n="you"></p>
+        <div class="fields fields--3">
+          <label class="field"><span data-i18n="name"></span><input type="text" data-f="tenant.name" autocomplete="name"></label>
+          <label class="field"><span data-i18n="street"></span><input type="text" data-f="tenant.street" autocomplete="street-address"></label>
+          <label class="field"><span data-i18n="city"></span><input type="text" data-f="tenant.city"></label>
+        </div>
+        <p class="sublabel" data-i18n="landlord"></p>
+        <div class="fields fields--3">
+          <label class="field"><span data-i18n="name"></span><input type="text" data-f="landlord.name"></label>
+          <label class="field"><span data-i18n="street"></span><input type="text" data-f="landlord.street"></label>
+          <label class="field"><span data-i18n="city"></span><input type="text" data-f="landlord.city"></label>
+        </div>
+        <label class="field"><span data-i18n="object"></span><input type="text" data-f="object"></label>
+      </fieldset>
+    </form>
+
+    <section class="panel result" id="result" aria-live="polite">
+      <p class="result__title"><span class="ps">&gt;</span> <span data-i18n="result">Ergebnis</span></p>
+      <div id="resultBody"></div>
+    </section>
+  </div>
+
+  <section class="panel letter" id="letter">
+    <p class="cmd"><span class="ps">$</span> cat brief.txt</p>
+    <h2 class="h2" data-i18n="letter_h">Ihr Brief an den Vermieter</h2>
+    <div class="opts" role="group">
+      <label><input type="radio" name="letterMode" value="objection"><span data-i18n="letter_mode_obj"></span></label>
+      <label><input type="radio" name="letterMode" value="inspect"><span data-i18n="letter_mode_insp"></span></label>
+    </div>
+    <p class="hint" data-i18n="letter_hint"></p>
+    <textarea id="letterText" rows="24" spellcheck="true" lang="de" aria-label="Brief"></textarea>
+    <p class="small" id="letterEdited" hidden data-i18n="letter_edited"></p>
+    <div class="actions">
+      <button type="button" class="btn btn--main" id="printBtn" data-i18n="print">Drucken / als PDF speichern</button>
+      <button type="button" class="btn btn--line" id="copyBtn" data-i18n="copy">Text kopieren</button>
+      <button type="button" class="btn btn--line" id="regenBtn" data-i18n="regen">Neu erzeugen</button>
+    </div>
+  </section>
+
+  <section class="sources">
+    <p class="cmd"><span class="ps">$</span> <span data-i18n="sources_cmd">cat quellen.txt</span></p>
+    <ul id="sourcesList"></ul>
+    <p class="note" data-i18n="note"></p>
+    <p class="note" data-i18n="avg_note"></p>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p data-i18n="privacy_line"></p>
+</footer>
+
+<div id="printLetter" class="print-letter" aria-hidden="true"></div>
+
+<script src="config.js"></script>
+<script src="logic.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
