@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nebenkostenabrechnung prüfen: kostenloser Check mit Widerspruch-Vorlage</title>
 <meta name="description" content="Nebenkostenabrechnung prüfen: Fristen, nicht umlagefähige Kosten, Umlageschlüssel, Heizkosten und CO2-Aufteilung. Mit fertigem Widerspruch oder Antrag auf Belegeinsicht. Läuft im Browser.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0B0F0C">
+<meta name="theme-color" content="#EFF1F2">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="app.css?v=1">
+<link rel="preload" href="fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="letterpress.css?v=2">
+<link rel="stylesheet" href="app.css?v=2">
 </head>
 <body>
 
@@ -26,7 +27,7 @@
 
 <main class="wrap main">
   <header class="head">
-    <p class="cmd"><span class="ps">$</span> <span data-i18n="cmd">nebenkosten --check</span></p>
+    <p class="eyebrow">Nebenkosten-Check</p>
     <h1 data-i18n="h1">Nebenkostenabrechnung prüfen</h1>
     <p class="lead" data-i18n="lead"></p>
     <p class="head__tools">
@@ -134,13 +135,12 @@
     </form>
 
     <section class="panel result" id="result" aria-live="polite">
-      <p class="result__title"><span class="ps">&gt;</span> <span data-i18n="result">Ergebnis</span></p>
+      <p class="result__title"><span data-i18n="result">Ergebnis</span></p>
       <div id="resultBody"></div>
     </section>
   </div>
 
   <section class="panel letter" id="letter">
-    <p class="cmd"><span class="ps">$</span> cat brief.txt</p>
     <h2 class="h2" data-i18n="letter_h">Ihr Brief an den Vermieter</h2>
     <div class="opts" role="group">
       <label><input type="radio" name="letterMode" value="objection"><span data-i18n="letter_mode_obj"></span></label>
@@ -157,7 +157,7 @@
   </section>
 
   <section class="sources">
-    <p class="cmd"><span class="ps">$</span> <span data-i18n="sources_cmd">cat quellen.txt</span></p>
+    <h2 class="h2" data-i18n="sources_cmd">Quellen</h2>
     <ul id="sourcesList"></ul>
     <p class="note" data-i18n="note"></p>
     <p class="note" data-i18n="avg_note"></p>
@@ -171,8 +171,8 @@
 <div id="printLetter" class="print-letter" aria-hidden="true"></div>
 
 <script src="config.js"></script>
-<script src="logic.js"></script>
-<script src="i18n.js"></script>
-<script src="app.js"></script>
+<script src="logic.js?v=2"></script>
+<script src="i18n.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

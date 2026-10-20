@@ -166,7 +166,7 @@
     if (f.id.indexOf('cat_no_') === 0) return t('f_cat_no', { label: v.label, why: t('why_' + f.rule) });
     return t('f_' + f.id, v);
   }
-  function chip(sev) { return '<span class="sev sev--' + sev + '">[' + esc(t('sev_' + sev)) + ']</span>'; }
+  function chip(sev) { return '<span class="sev sev--' + sev + '">' + esc(t('sev_' + sev)) + '</span>'; }
 
   function renderResult() {
     var body = $('#resultBody');

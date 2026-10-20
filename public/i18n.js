@@ -3,7 +3,7 @@ window.NK_I18N = {
   de: {
     locale: 'de-DE',
     title: 'Nebenkostenabrechnung prüfen: kostenloser Check mit Widerspruch-Vorlage',
-    cmd: 'nebenkosten --check',
+    cmd: 'Nebenkosten-Check',
     h1: 'Nebenkostenabrechnung prüfen',
     lead: 'Fristen, nicht umlagefähige Kosten, Verteilerschlüssel, Heizkosten und CO2-Aufteilung. Am Ende steht eine Liste der Fehler und ein fertiger Brief an Ihren Vermieter: Widerspruch oder Belegeinsicht.',
     privacy_line: 'Läuft in Ihrem Browser. Keine Cookies, kein Tracking. Ihre Angaben werden nur in diesem Browser gespeichert (localStorage) und nie an einen Server gesendet.',
@@ -52,7 +52,7 @@ window.NK_I18N = {
     mail_h: 'Erinnerung per E-Mail?',
     mail_p: 'Ich schicke Ihnen eine Erinnerung kurz vor Ablauf Ihrer Einwendungsfrist und eine Nachricht, wenn sich die Regeln ändern.',
     mail_btn: 'Erinnerung anfordern', updates: 'Updates zu meinen Tools',
-    sources_cmd: 'cat quellen.txt',
+    sources_cmd: 'Quellen',
     note: 'Keine Rechtsberatung. Der Check fasst die Regeln mit Stand 19. Oktober 2026 zusammen und prüft nur, was Sie eingeben, nicht die Belege. Im Zweifel fragen Sie Ihren Mieterverein oder eine Anwältin bzw. einen Anwalt für Mietrecht.',
     avg_note: 'Vergleichswerte: Betriebskostenspiegel des Deutschen Mieterbunds, Abrechnungsjahr 2024 (veröffentlicht 18.12.2025). Ein höherer Wert ist kein Fehler, nur ein Grund, die Belege anzusehen.',
     // findings
@@ -106,7 +106,7 @@ window.NK_I18N = {
   en: {
     locale: 'en-GB',
     title: 'Check your German utility bill (Nebenkostenabrechnung): free checker',
-    cmd: 'nebenkosten --check',
+    cmd: 'Nebenkosten-Check',
     h1: 'Check your Nebenkostenabrechnung',
     lead: 'Deadlines, costs a landlord may not pass on, the allocation key, heating costs and the CO2 split. You get a list of problems and a ready letter to your landlord, in German: an objection or a request to see the receipts.',
     privacy_line: 'Runs in your browser. No cookies, no tracking. Your entries are saved only in this browser (localStorage) and never sent to a server.',
@@ -155,7 +155,7 @@ window.NK_I18N = {
     mail_h: 'Email reminder?',
     mail_p: 'I will send you a reminder shortly before your objection deadline, and a note when the rules change.',
     mail_btn: 'Ask for a reminder', updates: 'Updates on my tools',
-    sources_cmd: 'cat sources.txt',
+    sources_cmd: 'Sources',
     note: 'Not legal advice. The checker summarises German rules as of 19 October 2026 and only checks what you enter, not the receipts. If in doubt, ask a Mieterverein or a tenancy lawyer.',
     avg_note: 'Comparison values: German Tenants\' Association (Deutscher Mieterbund) Betriebskostenspiegel, billing year 2024 (published 18 Dec 2025). A higher value is not an error, only a reason to look at the receipts.',
     f_period_order: 'The period ends before it starts. Check the dates.',
