@@ -214,7 +214,8 @@
     h += '<a class="btn btn--line" href="#letter">' + esc(t('letter_h')) + ' &darr;</a></div>';
     if (meta.uses >= 2 || meta.sent > 0) {
       h += '<div class="mail"><p class="h3">' + esc(t('mail_h')) + '</p><p class="small">' + esc(t('mail_p')) + '</p>' +
-        '<a class="btn btn--line" href="' + esc(link((lang === 'de' ? '/de/' : '/') + '?topic=nebenkosten-reminder#contact')) + '">' + esc(t('mail_btn')) + '</a></div>';
+        '<a class="btn btn--line" href="' + esc(link((lang === 'de' ? '/de/newsletter/' : '/subscribe/') + '?topic=nebenkosten-reminder' +
+          (dl.objectDue && !dl.objectExpired ? '&date=' + dl.objectDue + '&label=' + encodeURIComponent(t('tl_object')) : ''))) + '">' + esc(t('mail_btn')) + '</a></div>';
     }
     body.innerHTML = h;
     var ib = $('#icsBtn');
